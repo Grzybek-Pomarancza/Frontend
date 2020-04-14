@@ -8,7 +8,7 @@ import Routes from "./Routes";
 function App() {
     return (<Router>
                 <Routes/>
-            </div></Router>
+            </Router>
     );
 }
 
