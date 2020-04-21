@@ -1,32 +1,92 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
 import './Login'
+import validate from 'validate.js'
+
+
+const schema = {
+    firstName: {
+        presence: { allowEmpty: false, message: 'is required' },
+        length: {
+            maximum: 32
+        }
+    },
+    lastName: {
+        presence: { allowEmpty: false, message: 'is required' },
+        length: {
+            maximum: 32
+        }
+    },
+    email: {
+        presence: { allowEmpty: false, message: 'is required' },
+        email: true,
+        length: {
+            maximum: 64
+        }
+    },
+    password: {
+        presence: { allowEmpty: false, message: 'is required' },
+        length: {
+            minimum: 6,
+            maximum: 128
+        }
+    },
+    confirmPassword: {
+        presence: { allowEmpty: false, message: 'must match' }
+    }
+};
+
 export default class SignUp extends Component {
     constructor(props){
         super(props);
         this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            confirmPassword: ''
+            values: {},
+            errors: {},
+            isValid: false
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
     handleChange(event){
+        event.persist();
         const target = event.target;
         const value = target.value;
         const name = target.name;
-
         this.setState({
-            [name]: value
+            values:{
+                ...this.state.values,
+                [name]: value
+            }
         })
     };
 
+    isEmpty(obj){
+        for (let prop in obj) {
+            if (obj.hasOwnProperty(prop)) return false;
+        }
+        return true;
+    }
+
+
+    handleValidation(){
+        const errors = validate(this.state.values, schema) || {};
+
+        if (this.state.values.password !== this.state.values.confirmPassword) {
+            errors.confirmPassword = ['Confirm password must match'];
+        }
+
+        this.setState({
+            ...this.state,
+            isValid: this.isEmpty(errors),
+            errors: errors || {}
+        })
+    }
+
     handleSubmit(event){
         event.preventDefault();
+        this.handleValidation();
         console.log(this.state)
 
     };
