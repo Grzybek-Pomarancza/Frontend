@@ -1,26 +1,28 @@
-import {Link} from "react-router-dom";
-import React, {Component} from "react";
+import { Link } from "react-router-dom";
+import React, { Component } from "react";
 
-export default class Topbar extends Component{
-    render() {
-        return(
-            <div className="App">
-                <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-                    <div className="container">
-                        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                            <ul className="navbar-nav ml-auto">
-                                <li className="nav-item">
-                                    <Link className="nav-link" to={"/sign-in"}>Login</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        )
-    }
-
-};
+export default class Topbar extends Component {
+  render() {
+    return (
+      <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <Link class="navbar-brand" to={"/home"}>
+            <img src="http://placehold.it/150x50?text=Logo" alt="" />
+          </Link>
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link className="nav-link" to={"/sign-in"}>
+                Login
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to={"/sign-up"}>
+                Sign up
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    );
+  }
+}
