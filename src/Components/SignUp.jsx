@@ -50,13 +50,16 @@ export default class SignUp extends Component {
 
   handleChange(event) {
     event.persist();
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+    const value = event.target.value;
+    const name = event.target.name;
     this.setState({
       values: {
         ...this.state.values,
         [name]: value,
+      },
+      errors: {
+        ...this.state.errors,
+        [name]: null,
       },
     });
   }
@@ -82,20 +85,36 @@ export default class SignUp extends Component {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.handleValidation();
     console.log(this.state);
-  }
+  };
 
   render() {
     return (
       <div className="auth-inner">
         <form onSubmit={this.handleSubmit}>
           <h3>Sign Up</h3>
+          {this.state.isValid ? (
+            <h3 style={{ color: "green", fontSize: 20, float: "center" }}>
+              You are registered successfully!
+            </h3>
+          ) : null}
 
           <div className="form-group">
-            <label>First name</label>
+            <label>First name </label>
+            {this.state.errors.firstName ? (
+              <label
+                style={{
+                  fontSize: 12,
+                  color: "red",
+                  float: "right",
+                }}
+              >
+                {this.state.errors.firstName}
+              </label>
+            ) : null}
             <input
               name="firstName"
               type="text"
@@ -108,6 +127,17 @@ export default class SignUp extends Component {
 
           <div className="form-group">
             <label>Last name</label>
+            {this.state.errors.lastName ? (
+              <label
+                style={{
+                  fontSize: 12,
+                  color: "red",
+                  float: "right",
+                }}
+              >
+                {this.state.errors.lastName}
+              </label>
+            ) : null}
             <input
               name="lastName"
               type="text"
@@ -120,6 +150,17 @@ export default class SignUp extends Component {
 
           <div className="form-group">
             <label>Email address</label>
+            {this.state.errors.email ? (
+              <label
+                style={{
+                  fontSize: 12,
+                  color: "red",
+                  float: "right",
+                }}
+              >
+                {this.state.errors.email[0]}
+              </label>
+            ) : null}
             <input
               name="email"
               type="email"
@@ -132,6 +173,17 @@ export default class SignUp extends Component {
 
           <div className="form-group">
             <label>Password</label>
+            {this.state.errors.password ? (
+              <label
+                style={{
+                  fontSize: 12,
+                  color: "red",
+                  float: "right",
+                }}
+              >
+                {this.state.errors.password[0]}
+              </label>
+            ) : null}
             <input
               name="password"
               type="password"
@@ -144,6 +196,17 @@ export default class SignUp extends Component {
 
           <div className="form-group">
             <label>Confirm password</label>
+            {this.state.errors.confirmPassword ? (
+              <label
+                style={{
+                  fontSize: 12,
+                  color: "red",
+                  float: "right",
+                }}
+              >
+                {this.state.errors.confirmPassword}
+              </label>
+            ) : null}
             <input
               name="confirmPassword"
               type="password"
@@ -154,7 +217,11 @@ export default class SignUp extends Component {
             />
           </div>
 
-          <button type="submit" className="btn btn-block btn-primary">
+          <button
+            type="submit"
+            className="btn btn-block btn-primary"
+            onClick={this.handleSubmit}
+          >
             Sign Up
           </button>
           <p className="forgot-password text-right">
