@@ -82,5 +82,7 @@ html,
   color: #167bff;
 }
 .carousell-home {
-  width: 200px;
+  width: 50em;
+  margin: auto;
+  margin-top: 5em;
 }
