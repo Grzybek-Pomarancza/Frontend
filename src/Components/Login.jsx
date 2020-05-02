@@ -1,30 +1,52 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import validate from "validate.js";
-const schema = {
-  email: {
-    presence: { allowEmpty: false, message: "is required" },
-    email: true,
-    length: {
-      maximum: 64,
-    },
-  },
-  password: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      minimum: 6,
-      maximum: 128,
-    },
-  },
-};
+import FormComponent from "./FormComponent";
+const validEmailRegex = RegExp(
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+);
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      values: {},
-      errors: {},
+      values: {
+        email: "",
+        password: "",
+      },
+      errors: {
+        email: "",
+        password: "",
+      },
       isValid: false,
     };
+  }
+  handleChange = (event) => {
+    event.persist();
+    const value = event.target.value;
+    const name = event.target.name;
+    let errors = this.state.errors;
+    switch (name) {
+      case "email":
+        errors.email = validEmailRegex.test(value)
+          ? ""
+          : "Email adress is incorrect";
+        break;
+      case "password":
+        break;
+    }
+    this.setState({
+      values: {
+        ...this.state.values,
+        [name]: value,
+      },
+      errors,
+    });
+  };
+
+  isEmpty(obj) {
+    for (let prop in obj) {
+      if (obj.hasOwnProperty(prop)) return false;
+    }
+    return true;
   }
   handleValidation() {}
   handleSubmit = (event) => {
@@ -38,35 +60,24 @@ export default class Login extends Component {
         <form className="content" onSubmit={this.handleSubmit}>
           <h3>Login</h3>
 
-          <div className="form-group">
-            <label>Email address</label>
-            {this.state.errors.email ? (
-              <label
-                style={{
-                  fontSize: 12,
-                  color: "red",
-                  float: "right",
-                }}
-              >
-                {this.state.errors.email[0]}
-              </label>
-            ) : null}
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Enter email"
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-            />
-          </div>
-
+          <FormComponent
+            caption="Email address"
+            error={this.state.errors.email}
+            name="email"
+            type="text"
+            placeholder="Enter email"
+            value={this.state.value}
+            handleChange={this.handleChange}
+          />
+          <FormComponent
+            caption="Password"
+            error=""
+            name="password"
+            type="text"
+            placeholder="password"
+            value={this.state.value}
+            handleChange={this.handleChange}
+          />
           <div className="form-group">
             <div className="custom-control custom-checkbox">
               <input

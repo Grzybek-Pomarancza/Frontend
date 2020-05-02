@@ -1,46 +1,30 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Login";
-import validate from "validate.js";
+import FormComponent from "./FormComponent";
 
-const schema = {
-  firstName: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 32,
-    },
-  },
-  lastName: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 32,
-    },
-  },
-  email: {
-    presence: { allowEmpty: false, message: "is required" },
-    email: true,
-    length: {
-      maximum: 64,
-    },
-  },
-  password: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      minimum: 6,
-      maximum: 128,
-    },
-  },
-  confirmPassword: {
-    presence: { allowEmpty: false, message: "must match" },
-  },
-};
+const validEmailRegex = RegExp(
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+);
 
 export default class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      values: {},
-      errors: {},
+      values: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
+      errors: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
       isValid: false,
     };
 
@@ -52,15 +36,50 @@ export default class SignUp extends Component {
     event.persist();
     const value = event.target.value;
     const name = event.target.name;
+    let errors = this.state.errors;
+    switch (name) {
+      case "firstName":
+        errors.firstName =
+          value.length != 0
+            ? value.length < 5
+              ? "To short Name"
+              : ""
+            : "First name is required";
+        break;
+      case "lastName":
+        errors.lastName =
+          value.length != 0
+            ? value.length < 5
+              ? "To short Last Name"
+              : ""
+            : "Last name is required";
+        break;
+      case "email":
+        errors.email = validEmailRegex.test(value)
+          ? ""
+          : "Email adress is incorrect";
+        break;
+      case "password":
+        errors.password =
+          value.length != 0
+            ? value.length < 7
+              ? "Password is too short (minimum is 6 characters)"
+              : ""
+            : "Password is required";
+        break;
+      case "confirmPassword":
+        errors.confirmPassword =
+          this.state.values.password === value
+            ? ""
+            : "Confirm password must match";
+        break;
+    }
     this.setState({
       values: {
         ...this.state.values,
         [name]: value,
       },
-      errors: {
-        ...this.state.errors,
-        [name]: null,
-      },
+      errors,
     });
   }
 
@@ -71,23 +90,21 @@ export default class SignUp extends Component {
     return true;
   }
 
-  handleValidation() {
-    const errors = validate(this.state.values, schema) || {};
-
-    if (this.state.values.password !== this.state.values.confirmPassword) {
-      errors.confirmPassword = ["Confirm password must match"];
-    }
-
+  handleValidation = (errors, values) => {
+    let isValid = true;
+    Object.values(errors).forEach((val) => val.length > 0 && (isValid = false));
+    Object.values(values).forEach(
+      (val) => val.length === 0 && (isValid = false)
+    );
     this.setState({
       ...this.state,
-      isValid: this.isEmpty(errors),
-      errors: errors || {},
+      isValid: isValid,
     });
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.handleValidation();
+    this.handleValidation(this.state.errors, this.state.values);
     console.log(this.state);
   };
 
@@ -101,121 +118,51 @@ export default class SignUp extends Component {
               You are registered successfully!
             </h3>
           ) : null}
-
-          <div className="form-group">
-            <label>First name </label>
-            {this.state.errors.firstName ? (
-              <label
-                style={{
-                  fontSize: 12,
-                  color: "red",
-                  float: "right",
-                }}
-              >
-                {this.state.errors.firstName}
-              </label>
-            ) : null}
-            <input
-              name="firstName"
-              type="text"
-              className="form-control"
-              placeholder="First name"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Last name</label>
-            {this.state.errors.lastName ? (
-              <label
-                style={{
-                  fontSize: 12,
-                  color: "red",
-                  float: "right",
-                }}
-              >
-                {this.state.errors.lastName}
-              </label>
-            ) : null}
-            <input
-              name="lastName"
-              type="text"
-              className="form-control"
-              placeholder="Last name"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Email address</label>
-            {this.state.errors.email ? (
-              <label
-                style={{
-                  fontSize: 12,
-                  color: "red",
-                  float: "right",
-                }}
-              >
-                {this.state.errors.email[0]}
-              </label>
-            ) : null}
-            <input
-              name="email"
-              type="email"
-              className="form-control"
-              placeholder="Enter email"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Password</label>
-            {this.state.errors.password ? (
-              <label
-                style={{
-                  fontSize: 12,
-                  color: "red",
-                  float: "right",
-                }}
-              >
-                {this.state.errors.password[0]}
-              </label>
-            ) : null}
-            <input
-              name="password"
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Confirm password</label>
-            {this.state.errors.confirmPassword ? (
-              <label
-                style={{
-                  fontSize: 12,
-                  color: "red",
-                  float: "right",
-                }}
-              >
-                {this.state.errors.confirmPassword}
-              </label>
-            ) : null}
-            <input
-              name="confirmPassword"
-              type="password"
-              className="form-control"
-              placeholder="Confirm password"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </div>
+          <FormComponent
+            caption="First name"
+            error={this.state.errors.firstName}
+            name="firstName"
+            type="text"
+            placeholder="First name"
+            value={this.state.value}
+            handleChange={this.handleChange}
+          />
+          <FormComponent
+            caption="Last name"
+            error={this.state.errors.lastName}
+            name="lastName"
+            type="text"
+            placeholder="Last name"
+            value={this.state.value}
+            handleChange={this.handleChange}
+          />
+          <FormComponent
+            caption="Email address"
+            error={this.state.errors.email}
+            name="email"
+            type="text"
+            placeholder="Enter email"
+            value={this.state.value}
+            handleChange={this.handleChange}
+          />
+          <FormComponent
+            caption="Password"
+            error={this.state.errors.password}
+            name="password"
+            type="text"
+            placeholder="password"
+            value={this.state.value}
+            handleChange={this.handleChange}
+          />
+          <FormComponent
+            caption="Confirm Password"
+            error={this.state.errors.confirmPassword}
+            name="confirmPassword"
+            type="text"
+            placeholder="Confirm password"
+            value={this.state.value}
+            handleChange={this.handleChange}
+          />
 
           <button
             type="submit"
