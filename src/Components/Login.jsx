@@ -73,7 +73,7 @@ export default class Login extends Component {
             caption="Password"
             error=""
             name="password"
-            type="text"
+            type="password"
             placeholder="password"
             value={this.state.value}
             handleChange={this.handleChange}

@@ -149,7 +149,7 @@ export default class SignUp extends Component {
             caption="Password"
             error={this.state.errors.password}
             name="password"
-            type="text"
+            type="password"
             placeholder="password"
             value={this.state.value}
             handleChange={this.handleChange}
@@ -158,7 +158,7 @@ export default class SignUp extends Component {
             caption="Confirm Password"
             error={this.state.errors.confirmPassword}
             name="confirmPassword"
-            type="text"
+            type="password"
             placeholder="Confirm password"
             value={this.state.value}
             handleChange={this.handleChange}
