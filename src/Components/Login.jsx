@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import FormComponent from "./FormComponent";
+import { PostData } from "../services/PostData";
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 );
@@ -17,7 +18,21 @@ export default class Login extends Component {
         password: "",
       },
       isValid: false,
+      isLogin: false,
     };
+  }
+  login() {
+    PostData("login", this.state.values).then((result) => {
+      let responseJson = result;
+      if (responseJson.userData) {
+        sessionStorage.setItem("userData", responseJson);
+        this.setState({
+          isLogin: true,
+        });
+      } else {
+        console.log("login errorr!");
+      }
+    });
   }
   handleChange = (event) => {
     event.persist();
@@ -48,13 +63,20 @@ export default class Login extends Component {
     }
     return true;
   }
-  handleValidation() {}
+  handleValidation() {
+    this.setState({
+      isValid: true,
+    });
+  }
   handleSubmit = (event) => {
     event.preventDefault();
     this.handleValidation();
-    console.log(this.state);
+    this.state.isValid ? this.login() : console.log(this.state);
   };
   render() {
+    if (this.state.isLogin) {
+      return <Redirect to={"/home"} />;
+    }
     return (
       <div className="auth-inner">
         <form className="content" onSubmit={this.handleSubmit}>
