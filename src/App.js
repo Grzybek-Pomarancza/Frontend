@@ -6,6 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import LoginView from "./views/LoginView";
 import SignupView from "./views/SignupView";
 import HomeView from "./views/HomeView";
+import WelcomeView from "./views/WelcomeView";
 
 export default class App extends Component {
   constructor(props) {
@@ -17,14 +18,14 @@ export default class App extends Component {
     };
   }
   render() {
-<<<<<<< HEAD
     return (
       <Router>
         <div className="auth-wrapper">
           <Switch>
+            <Route path="/(|welcome)" component={WelcomeView} />
             <Route
               exact
-              path="/(|sign-in)"
+              path="/sign-in"
               render={(props) => (
                 <LoginView
                   {...props}
@@ -49,13 +50,5 @@ export default class App extends Component {
       </Router>
     );
   }
-=======
-      return (
-        <Router>
-          <Routes />
-        </Router>
-      );
-    }
 
->>>>>>> 3b44b5b6caa4a2a78e5f0294b757c7bdaa86752c
 }
