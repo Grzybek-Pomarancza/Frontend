@@ -5,7 +5,7 @@ import Welcome from "../Components/Welcome";
 class WelcomeView extends Component {
     render() {
         return (
-            <div>
+            <div className="welcome-wrapper">
                 <Topbar />
                 <Welcome/>
             </div>
