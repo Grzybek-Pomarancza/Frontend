@@ -8,22 +8,24 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
-      isLoaded: false,
+      isLoggedIn: false,
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {},
     };
+  }
+  handleLogin(data) {
+    this.setState({
+      loggedInStatus: "LOGGED_IN",
+      isLoggedIn: true,
+      user: data.user,
+    });
+  }
+  checkLoginStatus() {
+    //TO DO => send request to API if logged in?
   }
 
   componentDidMount() {
-    //example link to rest API -> in future Car-Rental-App-API
-    //for example localhost:3000
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({
-          isLoaded: true,
-          items: json,
-        });
-      });
+    this.checkLoginStatus;
   }
 
   render() {
