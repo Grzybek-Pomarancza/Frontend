@@ -17,7 +17,6 @@ export default class App extends Component {
     };
   }
   render() {
-<<<<<<< HEAD
     return (
       <Router>
         <div className="auth-wrapper">
@@ -49,13 +48,4 @@ export default class App extends Component {
       </Router>
     );
   }
-=======
-      return (
-        <Router>
-          <Routes />
-        </Router>
-      );
-    }
-
->>>>>>> 3b44b5b6caa4a2a78e5f0294b757c7bdaa86752c
 }
