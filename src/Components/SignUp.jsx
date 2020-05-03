@@ -160,7 +160,7 @@ export default class SignUp extends Component {
 
           <button
             type="submit"
-            className="btn btn-block btn-primary"
+            className="btn btn-block"
             onClick={this.handleSubmit}
           >
             Sign Up
