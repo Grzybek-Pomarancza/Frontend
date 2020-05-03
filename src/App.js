@@ -13,35 +13,12 @@ export default class App extends Component {
       user: {},
     };
   }
-  handleLogin(data) {
-    this.setState({
-      loggedInStatus: "LOGGED_IN",
-      isLoggedIn: true,
-      user: data.user,
-    });
-  }
-  checkLoginStatus() {
-    //TO DO => send request to API if logged in?
-  }
-
-  componentDidMount() {
-    this.checkLoginStatus;
-  }
-
   render() {
-    var { isLoaded, items } = this.state;
-    if (!isLoaded) {
-      return (
-        <div>
-          <h1>Loading API...</h1>
-        </div>
-      );
-    } else {
       return (
         <Router>
           <Routes />
         </Router>
       );
     }
-  }
+
 }
