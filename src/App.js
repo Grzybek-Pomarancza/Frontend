@@ -6,6 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import LoginView from "./views/LoginView";
 import SignupView from "./views/SignupView";
 import HomeView from "./views/HomeView";
+import WelcomeView from "./views/WelcomeView";
 
 export default class App extends Component {
   constructor(props) {
@@ -21,9 +22,10 @@ export default class App extends Component {
       <Router>
         <div className="auth-wrapper">
           <Switch>
+            <Route path="/(|welcome)" component={WelcomeView} />
             <Route
               exact
-              path="/(|sign-in)"
+              path="/sign-in"
               render={(props) => (
                 <LoginView
                   {...props}
