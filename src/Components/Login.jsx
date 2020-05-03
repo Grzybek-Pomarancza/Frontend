@@ -30,7 +30,7 @@ export default class Login extends Component {
           isLogin: true,
         });
       } else {
-        console.log("login errorr!");
+        console.log("login errorrrrr!");
       }
     });
   }
@@ -43,7 +43,7 @@ export default class Login extends Component {
       case "email":
         errors.email = validEmailRegex.test(value)
           ? ""
-          : "Email adress is incorrect";
+          : "Email address is incorrect";
         break;
       case "password":
         break;
