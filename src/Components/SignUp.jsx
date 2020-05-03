@@ -4,7 +4,7 @@ import "./Login";
 import FormComponent from "./FormComponent";
 
 const validEmailRegex = RegExp(
-  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+  /^(([^<>()\[\]\.,;:\s@"]+(\.[^<>()\[\]\.,;:\s@"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 );
 
 export default class SignUp extends Component {
@@ -40,28 +40,28 @@ export default class SignUp extends Component {
     switch (name) {
       case "firstName":
         errors.firstName =
-          value.length != 0
+          value.length !== 0
             ? value.length < 3
-              ? "To short Name"
+              ? "Too short name"
               : ""
             : "First name is required";
         break;
       case "lastName":
         errors.lastName =
-          value.length != 0
-            ? value.length < 5
-              ? "To short Last Name"
+          value.length !== 0
+            ? value.length < 3
+              ? "Too short last name"
               : ""
             : "Last name is required";
         break;
       case "email":
         errors.email = validEmailRegex.test(value)
           ? ""
-          : "Email adress is incorrect";
+          : "Email address is incorrect";
         break;
       case "password":
         errors.password =
-          value.length != 0
+          value.length !== 0
             ? value.length < 7
               ? "Password is too short (minimum is 6 characters)"
               : ""
@@ -83,12 +83,6 @@ export default class SignUp extends Component {
     });
   }
 
-  isEmpty(obj) {
-    for (let prop in obj) {
-      if (obj.hasOwnProperty(prop)) return false;
-    }
-    return true;
-  }
 
   handleValidation = (errors, values) => {
     let isValid = true;

@@ -16,22 +16,8 @@ export default class App extends Component {
       user: {},
     };
   }
-  handleLogin(data) {
-    this.setState({
-      loggedInStatus: "LOGGED_IN",
-      isLoggedIn: true,
-      user: data.user,
-    });
-  }
-  checkLoginStatus() {
-    //TO DO => send request to API if logged in?
-  }
-
-  componentDidMount() {
-    this.checkLoginStatus;
-  }
-
   render() {
+<<<<<<< HEAD
     return (
       <Router>
         <div className="auth-wrapper">
@@ -63,4 +49,13 @@ export default class App extends Component {
       </Router>
     );
   }
+=======
+      return (
+        <Router>
+          <Routes />
+        </Router>
+      );
+    }
+
+>>>>>>> 3b44b5b6caa4a2a78e5f0294b757c7bdaa86752c
 }
