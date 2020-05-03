@@ -30,6 +30,7 @@ export default class SignUp extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
   }
 
   handleChange(event) {
@@ -83,13 +84,24 @@ export default class SignUp extends Component {
     });
   }
 
-
   handleValidation = (errors, values) => {
     let isValid = true;
+    var step = 0;
     Object.values(errors).forEach((val) => val.length > 0 && (isValid = false));
-    Object.values(values).forEach(
-      (val) => val.length === 0 && (isValid = false)
-    );
+    Object.values(values).forEach((val) => {
+      if (val.length === 0) {
+        isValid = false;
+        this.state.errors[step] = "This field cannot be empty!";
+      }
+      step++;
+    });
+    this.forceUpdate();
+    /*for (step = 0; step < 4; step++) {
+      if (this.state.values[step].length === 0) {
+        console.log("gówno");
+      }
+      console.log("gówno");
+    }*/
     this.setState({
       ...this.state,
       isValid: isValid,
