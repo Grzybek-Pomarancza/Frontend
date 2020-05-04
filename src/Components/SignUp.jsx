@@ -46,6 +46,7 @@ export default class SignUp extends Component {
               ? "Too short name"
               : ""
             : "First name is required";
+
         break;
       case "lastName":
         errors.lastName =
