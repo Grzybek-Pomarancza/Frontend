@@ -24,13 +24,15 @@ export default class Login extends Component {
     this.login = this.login.bind(this);
   }
   login() {
-    PostData("login", this.state.values).then((result) => {
+    PostData("/user/login", this.state.values).then((result) => {
       let responseJson = result;
-      if (responseJson.userData) {
-        sessionStorage.setItem("userData", responseJson);
+      if (responseJson.token) {
+        console.log(responseJson.token);
+        sessionStorage.setItem("token", responseJson.token);
         this.setState({
           isLogin: true,
         });
+        this.props.isLogin();
       } else {
         console.log("login error!");
       }

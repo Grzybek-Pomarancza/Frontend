@@ -12,7 +12,10 @@ class LoginView extends Component {
       <div className="welcome-wrapper">
         <div className="login-wrapper">
           <Topbar />
-          <Login isLoggedIn={this.props.isLoggedIn} />
+          <Login
+            isLoggedIn={this.props.isLoggedIn}
+            isLogin={this.props.isLogin}
+          />
         </div>
       </div>
     );

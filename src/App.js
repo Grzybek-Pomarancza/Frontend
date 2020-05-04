@@ -7,6 +7,7 @@ import LoginView from "./views/LoginView";
 import SignupView from "./views/SignupView";
 import HomeView from "./views/HomeView";
 import WelcomeView from "./views/WelcomeView";
+import { GetUserData } from "./services/PostData";
 
 export default class App extends Component {
   constructor(props) {
@@ -16,6 +17,23 @@ export default class App extends Component {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {},
     };
+  }
+  isLogin() {
+    if (sessionStorage.getItem("UserData")) {
+      this.setState({
+        isLoggedIn: true,
+        loggedInStatus: "LOGGED_IN",
+        user: sessionStorage.getItem("UserData"),
+      });
+    }
+    GetUserData(sessionStorage.getItem("token")).then((resault) => {
+      let responseJson = resault;
+      if (responseJson.name) {
+        sessionStorage.userData.name = responseJson.name;
+      } else {
+        console.log("Error in downloading user data!");
+      }
+    });
   }
 
   render() {
@@ -31,7 +49,7 @@ export default class App extends Component {
                 <LoginView
                   {...props}
                   loggedInStatus={this.state.isLoggedIn}
-                  login={this.login}
+                  isLogin={this.isLogin}
                 />
               )}
             />
