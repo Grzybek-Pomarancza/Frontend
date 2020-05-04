@@ -83,28 +83,29 @@ export default class SignUp extends Component {
       errors,
     });
   }
-
   handleValidation = (errors, values) => {
     let isValid = true;
-    var step = 0;
     Object.values(errors).forEach((val) => val.length > 0 && (isValid = false));
     Object.values(values).forEach((val) => {
       if (val.length === 0) {
         isValid = false;
-        this.state.errors[step] = "This field cannot be empty!";
       }
-      step++;
     });
-    this.forceUpdate();
-    /*for (step = 0; step < 4; step++) {
-      if (this.state.values[step].length === 0) {
-        console.log("gówno");
-      }
-      console.log("gówno");
-    }*/
+    errors = this.state.errors;
+    if (this.state.values.firstName.length === 0)
+      errors.firstName = "This field cannot be empty!";
+    if (this.state.values.lastName.length === 0)
+      errors.lastName = "This field cannot be empty!";
+    if (this.state.values.email.length === 0)
+      errors.email = "This field cannot be empty!";
+    if (this.state.values.password.length === 0)
+      errors.password = "This field cannot be empty!";
+    if (this.state.values.confirmPassword.length === 0)
+      errors.confirmPassword = "This field cannot be empty!";
     this.setState({
       ...this.state,
       isValid: isValid,
+      errors,
     });
   };
 
