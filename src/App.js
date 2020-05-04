@@ -17,6 +17,7 @@ export default class App extends Component {
       user: {},
     };
   }
+
   render() {
     return (
       <Router>
@@ -29,7 +30,8 @@ export default class App extends Component {
               render={(props) => (
                 <LoginView
                   {...props}
-                  loggedInStatus={this.state.loggedInStatus}
+                  loggedInStatus={this.state.isLoggedIn}
+                  login={this.login}
                 />
               )}
             />

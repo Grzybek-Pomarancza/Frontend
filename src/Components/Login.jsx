@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import FormComponent from "./FormComponent";
 import { PostData } from "../services/PostData";
+
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 );
@@ -18,8 +19,9 @@ export default class Login extends Component {
         password: "",
       },
       isValid: false,
-      isLogin: false,
+      isLogin: this.props.isLoggedIn,
     };
+    this.login = this.login.bind(this);
   }
   login() {
     PostData("login", this.state.values).then((result) => {
@@ -30,10 +32,11 @@ export default class Login extends Component {
           isLogin: true,
         });
       } else {
-        console.log("login errorrrrr!");
+        console.log("login error!");
       }
     });
   }
+
   handleChange = (event) => {
     event.persist();
     const value = event.target.value;
@@ -46,6 +49,7 @@ export default class Login extends Component {
           : "Email address is incorrect";
         break;
       case "password":
+        errors.password = value.length !== 0 ? "" : "Password is required";
         break;
     }
     this.setState({
@@ -64,8 +68,17 @@ export default class Login extends Component {
     return true;
   }
   handleValidation() {
+    let isValid = true;
+    let errors = this.state.errors;
+    if (this.state.values.email.length === 0)
+      errors.email = "This field cannot be empty!";
+    if (this.state.values.password.length === 0)
+      errors.password = "This field cannot be empty!";
+    Object.values(errors).forEach((val) => val.length > 0 && (isValid = false));
     this.setState({
-      isValid: true,
+      ...this.state,
+      isValid: isValid,
+      errors,
     });
   }
   handleSubmit = (event) => {
@@ -93,14 +106,13 @@ export default class Login extends Component {
           />
           <FormComponent
             caption="Password"
-            error=""
+            error={this.state.errors.password}
             name="password"
             type="password"
-            placeholder="password"
+            placeholder="Enter password"
             value={this.state.value}
             handleChange={this.handleChange}
           />
-
 
           <button type="submit" className="btn btn-block">
             Submit

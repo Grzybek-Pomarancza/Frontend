@@ -85,12 +85,6 @@ export default class SignUp extends Component {
   }
   handleValidation = (errors, values) => {
     let isValid = true;
-    Object.values(errors).forEach((val) => val.length > 0 && (isValid = false));
-    Object.values(values).forEach((val) => {
-      if (val.length === 0) {
-        isValid = false;
-      }
-    });
     errors = this.state.errors;
     if (this.state.values.firstName.length === 0)
       errors.firstName = "This field cannot be empty!";
@@ -102,6 +96,12 @@ export default class SignUp extends Component {
       errors.password = "This field cannot be empty!";
     if (this.state.values.confirmPassword.length === 0)
       errors.confirmPassword = "This field cannot be empty!";
+    Object.values(errors).forEach((val) => val.length > 0 && (isValid = false));
+    Object.values(values).forEach((val) => {
+      if (val.length === 0) {
+        isValid = false;
+      }
+    });
     this.setState({
       ...this.state,
       isValid: isValid,
