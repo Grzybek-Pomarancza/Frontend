@@ -6,7 +6,7 @@ class HomeView extends Component {
   render() {
     return (
       <React.Fragment>
-        <Topbar />
+        <Topbar logout={this.props.logout} />
         <Example />
       </React.Fragment>
     );
