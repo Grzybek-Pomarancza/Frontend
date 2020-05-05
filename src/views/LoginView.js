@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Topbar from "../Components/Topbar";
 import Login from "../Components/Login";
+import SignUp from "../Components/SignUp";
 import "../Styles/loginStyle.css";
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 );
-class LoginView extends Component {
+export default class LoginView extends Component {
   render() {
     return (
       <div className="welcome-wrapper">
@@ -22,5 +23,3 @@ class LoginView extends Component {
     );
   }
 }
-
-export default LoginView;
