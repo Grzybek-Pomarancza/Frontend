@@ -23,12 +23,14 @@ export default class Login extends Component {
   }
   login() {
     PostData("/login", this.state.values).then((data) => {
-      console.log(data);
       if (data.token) {
         sessionStorage.setItem("token", data.token);
         this.props.login();
       } else {
-        console.log("login error!");
+        if (data.message !== 0) {
+          this.state.errors.email = data.message;
+          this.handleValidation();
+        }
       }
     });
   }
@@ -59,12 +61,6 @@ export default class Login extends Component {
     });
   };
 
-  isEmpty(obj) {
-    for (let prop in obj) {
-      if (obj.hasOwnProperty(prop)) return false;
-    }
-    return true;
-  }
   handleValidation() {
     let isValid = true;
     let errors = this.state.errors;

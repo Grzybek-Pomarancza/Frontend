@@ -109,7 +109,6 @@ export default class SignUp extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.handleValidation(this.state.errors, this.state.values);
-    console.log(this.state);
   };
 
   render() {
