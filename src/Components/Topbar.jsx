@@ -1,8 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 
 export default class Topbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      logout: false,
+    };
+    this.logout = this.logout.bind(this);
+  }
+  logout() {
+    this.props.logout();
+    this.setState({
+      logout: true,
+    });
+  }
   render() {
+    if (this.state.logout) {
+      return <Redirect to="/sign-in" />;
+    }
     return (
       <nav className="navbar navbar-expand-lg navbar-light fixed-top">
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
@@ -18,6 +34,11 @@ export default class Topbar extends Component {
             <li className="nav-item">
               <Link className="nav-link" to={"/sign-up"}>
                 Sign up
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" onClick={this.logout}>
+                logout
               </Link>
             </li>
           </ul>

@@ -3,10 +3,6 @@ import { Link } from "react-router-dom";
 import "./Login";
 import FormComponent from "./FormComponent";
 
-const validEmailRegex = RegExp(
-  /^(([^<>()\[\]\.,;:\s@"]+(\.[^<>()\[\]\.,;:\s@"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-);
-
 export default class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +52,7 @@ export default class SignUp extends Component {
             : "Last name is required";
         break;
       case "email":
-        errors.email = validEmailRegex.test(value)
+        errors.email = this.props.validEmailRegex.test(value)
           ? ""
           : "Email address is incorrect";
         break;

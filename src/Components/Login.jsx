@@ -3,9 +3,6 @@ import { Link, Redirect } from "react-router-dom";
 import FormComponent from "./FormComponent";
 import { PostData } from "../services/PostData";
 
-const validEmailRegex = RegExp(
-  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-);
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -19,20 +16,17 @@ export default class Login extends Component {
         password: "",
       },
       isValid: false,
-      isLogin: this.props.isLoggedIn,
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
     this.login = this.login.bind(this);
   }
   login() {
-    PostData("/user/login", this.state.values).then((result) => {
-      let responseJson = result;
-      if (responseJson.token) {
-        console.log(responseJson.token);
-        sessionStorage.setItem("token", responseJson.token);
-        this.setState({
-          isLogin: true,
-        });
-        this.props.isLogin();
+    PostData("/login", this.state.values).then((data) => {
+      console.log(data);
+      if (data.token) {
+        sessionStorage.setItem("token", data.token);
+        this.props.login();
       } else {
         console.log("login error!");
       }
@@ -46,12 +40,14 @@ export default class Login extends Component {
     let errors = this.state.errors;
     switch (name) {
       case "email":
-        errors.email = validEmailRegex.test(value)
+        errors.email = this.props.validEmailRegex.test(value)
           ? ""
           : "Email address is incorrect";
         break;
       case "password":
         errors.password = value.length !== 0 ? "" : "Password is required";
+        break;
+      default:
         break;
     }
     this.setState({
@@ -76,7 +72,12 @@ export default class Login extends Component {
       errors.email = "This field cannot be empty!";
     if (this.state.values.password.length === 0)
       errors.password = "This field cannot be empty!";
-    Object.values(errors).forEach((val) => val.length > 0 && (isValid = false));
+    Object.values(errors).forEach((val) => {
+      if (val.length > 0) {
+        isValid = false;
+      }
+    });
+    this.state.isValid = isValid;
     this.setState({
       ...this.state,
       isValid: isValid,
@@ -86,10 +87,13 @@ export default class Login extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.handleValidation();
-    this.state.isValid ? this.login() : console.log(this.state);
+    if (this.state.isValid) {
+      console.log("logowanie!");
+      this.login();
+    }
   };
   render() {
-    if (this.state.isLogin) {
+    if (this.props.isLoggedIn) {
       return <Redirect to={"/home"} />;
     }
     return (
