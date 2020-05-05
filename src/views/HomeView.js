@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Topbar from "../Components/Topbar";
 import Example from "../Components/Carousel";
+import MainTopbar from "../Components/MainTopbar";
 
 class HomeView extends Component {
   render() {
     return (
       <React.Fragment>
-        <Topbar logout={this.props.logout} />
+        <MainTopbar logout={this.props.logout} />
         <Example />
       </React.Fragment>
     );
