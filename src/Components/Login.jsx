@@ -16,6 +16,7 @@ export default class Login extends Component {
         password: "",
       },
       isValid: false,
+      reqValid:true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleValidation = this.handleValidation.bind(this);
@@ -23,13 +24,16 @@ export default class Login extends Component {
   }
   login() {
     PostData("/login", this.state.values).then((data) => {
+      let reqValid = false;
       if (data.token) {
         sessionStorage.setItem("token", data.token);
         this.props.login();
       } else {
         if (data.message !== 0) {
-          this.state.errors.email = data.message;
-          this.handleValidation();
+          this.state.reqValid = reqValid;
+          this.setState({
+            reqValid,
+          })
         }
       }
     });
@@ -96,7 +100,11 @@ export default class Login extends Component {
       <div className="auth-inner">
         <form className="content" onSubmit={this.handleSubmit}>
           <h3>Login</h3>
-
+          {!this.state.reqValid ? (
+              <h3 style={{ color: "red", fontSize: 15, float: "center" }}>
+                Wrong email or password
+              </h3>
+          ) : null}
           <FormComponent
             caption="Email address"
             error={this.state.errors.email}
