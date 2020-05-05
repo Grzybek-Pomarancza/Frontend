@@ -39,11 +39,7 @@ html,
   justify-content: center;
   flex-direction: column;
 }
-.welcome-wrapper .welcome{
-  padding-bottom: 10em;
-  font-size: 3em;
-  color: #D3C4B0;
-}
+
 
 .navbar-light {
   background-color: #ffffff;
@@ -73,12 +69,6 @@ html,
   box-shadow: none;
 }
 
-.auth-wrapper h3 {
-  text-align: center;
-  margin: 0;
-  line-height: 1;
-  padding-bottom: 20px;
-}
 
 .custom-control-label {
   font-weight: 400;

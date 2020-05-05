@@ -1,0 +1,19 @@
+.welcome a{
+    margin: 5px;
+    padding: 3px;
+    color: #D3C4B0;
+    border-radius: 0.25em ;
+    font-size: 1.5em;
+}
+.welcome-wrapper .welcome h3{
+    text-align: center;
+    margin: 0.5em;
+    line-height: 1;
+    font-size: 3em;
+    color: #D3C4B0;
+
+}
+.welcome{
+    padding-bottom:30em ;
+    text-align: center;
+}
