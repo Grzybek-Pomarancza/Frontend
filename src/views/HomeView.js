@@ -3,7 +3,7 @@ import Example from "../Components/home/Carousel";
 import MainTopbar from "../Components/home/MainTopbar";
 import { Redirect } from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
-import { MapContainer } from "./HomeView/map";
+import MapContainer from "./HomeView/map";
 
 class HomeView extends Component {
   /*constructor(props) {
@@ -26,6 +26,7 @@ class HomeView extends Component {
           <Example />
         </Route>
         <Route exact path="/home/car-map">
+          <MainTopbar logout={this.props.logout} />
           <MapContainer />
         </Route>
         <Route exact part="/home/rent-a-car">

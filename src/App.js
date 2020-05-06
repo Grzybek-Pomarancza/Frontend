@@ -88,41 +88,42 @@ export default class App extends Component {
     return (
       <Router>
         <ReactNotification />
-        <div className="auth-wrapper">
-          <Switch>
-            <Route path="/(|welcome)" component={WelcomeView} />
-            <Route
-              exact
-              path="/sign-in"
-              render={(props) => (
-                <LoginView
-                  {...props}
-                  isLoggedIn={this.state.isLoggedIn}
-                  login={this.login}
-                />
-              )}
-            />
-            <Route path="/sign-up" component={SignupView} />
-            <Route
-              path="/home"
-              render={(props) => (
-                <HomeView
-                  logout={this.logout}
-                  isLoggedIn={this.state.isLoggedIn}
-                />
-              )}
-            />
-            <Route
-              path="/home"
-              render={(props) => (
-                <HomeView
-                  {...props}
-                  loggedInStatus={this.state.loggedInStatus}
-                />
-              )}
-            />
-          </Switch>
-        </div>
+        {
+          //<div className="auth-wrapper">
+        }
+        <Switch>
+          <Route path="/(|welcome)" component={WelcomeView} />
+          <Route
+            exact
+            path="/sign-in"
+            render={(props) => (
+              <LoginView
+                {...props}
+                isLoggedIn={this.state.isLoggedIn}
+                login={this.login}
+              />
+            )}
+          />
+          <Route path="/sign-up" component={SignupView} />
+          <Route
+            path="/home"
+            render={(props) => (
+              <HomeView
+                logout={this.logout}
+                isLoggedIn={this.state.isLoggedIn}
+              />
+            )}
+          />
+          <Route
+            path="/home"
+            render={(props) => (
+              <HomeView {...props} loggedInStatus={this.state.loggedInStatus} />
+            )}
+          />
+        </Switch>
+        {
+          //</Router></div>
+        }
       </Router>
     );
   }
