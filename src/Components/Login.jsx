@@ -16,7 +16,7 @@ export default class Login extends Component {
         password: "",
       },
       isValid: false,
-      reqValid:true
+      reqValid: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleValidation = this.handleValidation.bind(this);
@@ -33,7 +33,7 @@ export default class Login extends Component {
           this.state.reqValid = reqValid;
           this.setState({
             reqValid,
-          })
+          });
         }
       }
     });
@@ -101,9 +101,9 @@ export default class Login extends Component {
         <form className="content" onSubmit={this.handleSubmit}>
           <h3>Login</h3>
           {!this.state.reqValid ? (
-              <h3 style={{ color: "red", fontSize: 15, float: "center" }}>
-                Wrong email or password
-              </h3>
+            <h3 style={{ color: "red", fontSize: 15, float: "center" }}>
+              Wrong email or password
+            </h3>
           ) : null}
           <FormComponent
             caption="Email address"

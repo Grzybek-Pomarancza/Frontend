@@ -4,6 +4,7 @@ import MainTopbar from "../Components/home/MainTopbar";
 import { Redirect } from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
 import MapContainer from "./HomeView/map";
+import RentCar from "./HomeView/RentCar";
 
 class HomeView extends Component {
   /*constructor(props) {
@@ -31,6 +32,7 @@ class HomeView extends Component {
         </Route>
         <Route exact part="/home/rent-a-car">
           <MainTopbar logout={this.props.logout} />
+          <RentCar />
         </Route>
       </Switch>
     );
