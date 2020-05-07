@@ -14,10 +14,10 @@ const SelectComponent = (props) => {
           {props.error}
         </label>
       ) : null}
-      <select id={props.id} onChange={props.handleChange}>
-        {/*Object.props.optionList.forEach((val) => {
-          <option value={val}>{val}</option>;
-        })*/}
+      <select class="form-control" id={props.id} onChange={props.handleChange}>
+        {props.optionList.map((value) => (
+          <option value={value}>{value}</option>
+        ))}
       </select>
     </div>
   );

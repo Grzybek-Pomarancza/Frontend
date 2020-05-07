@@ -17,9 +17,9 @@ class HomeView extends Component {
     if (!this.props.isLoggedIn) this.setState({ isLoggedIn: false });
   }*/
   render() {
-    /*if (this.props.isLoggedIn === false) {
+    if (this.props.isLoggedIn === false) {
       return <Redirect to="/sign-in" />;
-    }*/
+    }
     return (
       <Switch>
         <Route exact path="/home">

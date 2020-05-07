@@ -16,7 +16,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: true,
       loggedInStatus: "NOT_LOGGED_IN",
     };
     this.login = this.login.bind(this);
@@ -24,10 +24,7 @@ export default class App extends Component {
     this.checkSession = this.checkSession.bind(this);
   }
   login() {
-    this.setState({
-      isLoggedIn: true,
-      loggedInStatus: "LOGGED_IN",
-    });
+    this.checkSession();
     store.addNotification({
       title: "Great!",
       message: "Logged in successfully!",
@@ -66,6 +63,7 @@ export default class App extends Component {
       if (responseJson.email) {
         sessionStorage.setItem("email", responseJson.email);
         sessionStorage.setItem("name", responseJson.name);
+        sessionStorage.setItem("surname", responseJson.surname);
         this.setState({
           isLoggedIn: true,
           loggedInStatus: "LOGGED_IN",
@@ -122,7 +120,7 @@ export default class App extends Component {
           />
         </Switch>
         {
-          //</Router></div>
+          //</div>
         }
       </Router>
     );
