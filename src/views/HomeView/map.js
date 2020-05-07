@@ -3,14 +3,16 @@ import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 const mapStyle = {
   position: "absolute",
   width: "100%",
-  height: "80%",
+  height: "100%",
 };
+let CONFIG = require("../../services/config.json");
 export class MapContainer extends Component {
   state = {
     showingInfoWindow: false, //Hides or the shows the infoWindow
     activeMarker: {}, //Shows the active marker upon click
     selectedPlace: {}, //Shows the infoWindow to the selected place upon a marker
   };
+
   onMarkerClick = (props, marker, e) =>
     this.setState({
       selectedPlace: props,
@@ -44,7 +46,7 @@ export class MapContainer extends Component {
           onClose={this.onClose}
         >
           <div>
-            <h4>{this.state.selectedPlace.name} xDD</h4>
+            <h4>{this.state.selectedPlace.name}</h4>
           </div>
         </InfoWindow>
       </Map>
@@ -53,5 +55,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AI",
+  apiKey: CONFIG.apiKey,
 })(MapContainer);

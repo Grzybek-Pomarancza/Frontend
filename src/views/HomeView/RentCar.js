@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import FormComponent from "../../Components/FormComponent";
+import SelectComponent from "../../Components/SelectComponent";
 
 class RentCar extends Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class RentCar extends Component {
     this.state = {
       errors: {},
       values: {},
+      cars: {},
     };
   }
   render() {
@@ -14,6 +16,12 @@ class RentCar extends Component {
       <div className="auth-wrapper">
         <div className="auth-inner">
           <form className="content" onSubmit={this.handleSubmit}>
+            <SelectComponent
+              caption="Choose a car"
+              error={this.state.error.car}
+              id="cars"
+              optionList={this.state.cars}
+            />
             <FormComponent
               caption=""
               error={this.state.errors.lastName}
