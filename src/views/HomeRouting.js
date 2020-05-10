@@ -4,9 +4,11 @@ import MainTopbar from "../Components/home/MainTopbar";
 import { Redirect } from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
 import MapContainer from "./HomeView/map";
-import RentCar from "./HomeView/RentCar";
 
-class HomeView extends Component {
+import HomeView from "./HomeView/HomeView";
+import RentCarView from "./HomeView/RentCarView";
+
+class HomeRouting extends Component {
   /*constructor(props) {
     super(props);
     this.state = {
@@ -23,8 +25,8 @@ class HomeView extends Component {
     return (
       <Switch>
         <Route exact path="/home">
-          <MainTopbar logout={this.props.logout} />
-          <Example />
+            <MainTopbar logout={this.props.logout} />
+            <HomeView />
         </Route>
         <Route exact path="/home/car-map">
           <MainTopbar logout={this.props.logout} />
@@ -32,11 +34,11 @@ class HomeView extends Component {
         </Route>
         <Route exact part="/home/rent-a-car">
           <MainTopbar logout={this.props.logout} />
-          <RentCar />
+          <RentCarView />
         </Route>
       </Switch>
     );
   }
 }
 
-export default HomeView;
+export default HomeRouting;

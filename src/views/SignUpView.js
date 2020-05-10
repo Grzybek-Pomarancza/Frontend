@@ -10,8 +10,8 @@ export default class SignupView extends Component {
   render() {
     return (
       <div className="welcome-wrapper">
+      <Topbar />
         <div className="login-wrapper">
-          <Topbar />
           <SignUp
             validEmailRegex={validEmailRegex}
             isLoggedIn={this.props.isLoggedIn}

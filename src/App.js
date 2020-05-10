@@ -8,7 +8,7 @@ import { store } from "react-notifications-component";
 import ReactNotification from "react-notifications-component";
 import LoginView from "./views/LoginView";
 import SignupView from "./views/SignUpView";
-import HomeView from "./views/HomeView";
+import HomeRouting from "./views/HomeRouting";
 import WelcomeView from "./views/WelcomeView";
 import { GetUserData } from "./services/GetData";
 
@@ -106,7 +106,7 @@ export default class App extends Component {
           <Route
             path="/home"
             render={(props) => (
-              <HomeView
+              <HomeRouting
                 logout={this.logout}
                 isLoggedIn={this.state.isLoggedIn}
               />
@@ -115,7 +115,7 @@ export default class App extends Component {
           <Route
             path="/home"
             render={(props) => (
-              <HomeView {...props} loggedInStatus={this.state.loggedInStatus} />
+              <HomeRouting {...props} loggedInStatus={this.state.loggedInStatus} />
             )}
           />
         </Switch>
