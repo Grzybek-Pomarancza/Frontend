@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Login";
 import FormComponent from "./FormComponent";
+import { PostData } from "../services/PostData";
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -20,7 +21,9 @@ export default class SignUp extends Component {
         email: "",
         password: "",
         confirmPassword: "",
+        form: "",
       },
+      message: "",
       isValid: false,
     };
 
@@ -104,11 +107,48 @@ export default class SignUp extends Component {
       isValid: isValid,
       errors,
     });
+    return isValid;
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.handleValidation(this.state.errors, this.state.values);
+    let isValid = this.handleValidation(this.state.errors, this.state.values);
+    console.log(isValid);
+    let message = "";
+    if (isValid) {
+      let values = {
+        name: this.state.values.firstName,
+        surname: this.state.values.lastName,
+        email: this.state.values.email,
+        password: this.state.values.password,
+      };
+      PostData("/register", values).then((data) => {
+        if (data.error) {
+          isValid = false;
+          message = data.message;
+          this.setState({
+            ...this.state,
+            errors: {
+              form: message,
+            },
+          });
+        } else {
+          message = data.message;
+          this.setState({
+            ...this.state,
+            message: message,
+          });
+        }
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        message: "",
+        errors: {
+          form: "",
+        },
+      });
+    }
   };
 
   render() {
@@ -116,9 +156,14 @@ export default class SignUp extends Component {
       <div className="auth-inner">
         <form onSubmit={this.handleSubmit}>
           <h3>Sign Up</h3>
-          {this.state.isValid ? (
+          {this.state.message ? (
             <h3 style={{ color: "green", fontSize: 20, float: "center" }}>
-              You are registered successfully!
+              {this.state.message}
+            </h3>
+          ) : null}
+          {this.state.errors.form ? (
+            <h3 style={{ color: "red", fontSize: 20, float: "center" }}>
+              {this.state.errors.form}
             </h3>
           ) : null}
           <FormComponent
