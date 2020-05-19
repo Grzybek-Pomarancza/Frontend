@@ -9,15 +9,24 @@ import HomeView from "./HomeView/HomeView";
 import RentCarView from "./HomeView/RentCarView";
 
 class HomeRouting extends Component {
-  /*constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true,
+      salon: "",
     };
+    this.goToSalon = this.goToSalon.bind(this);
+    this.salonReset = this.salonReset.bind(this);
   }
-  componentDidMount() {
-    if (!this.props.isLoggedIn) this.setState({ isLoggedIn: false });
-  }*/
+  goToSalon(salonId) {
+    this.setState({
+      salon: salonId,
+    });
+  }
+  salonReset() {
+    this.setState({
+      salon: "",
+    });
+  }
   render() {
     if (this.props.isLoggedIn === false) {
       return <Redirect to="/sign-in" />;
@@ -25,16 +34,16 @@ class HomeRouting extends Component {
     return (
       <Switch>
         <Route exact path="/home">
-            <MainTopbar logout={this.props.logout} />
-            <HomeView />
+          <MainTopbar logout={this.props.logout} reset={this.salonReset} />
+          <HomeView />
         </Route>
         <Route exact path="/home/car-map">
-          <MainTopbar logout={this.props.logout} />
-          <MapContainer />
+          <MainTopbar logout={this.props.logout} reset={this.salonReset} />
+          <MapContainer goToSalon={this.goToSalon} />
         </Route>
         <Route exact part="/home/rent-a-car">
-          <MainTopbar logout={this.props.logout} />
-          <RentCarView />
+          <MainTopbar logout={this.props.logout} reset={this.salonReset} />
+          <RentCarView salon={this.state.salon} />
         </Route>
       </Switch>
     );

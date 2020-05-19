@@ -15,6 +15,7 @@ class RentCar extends Component {
         email: "",
       },
       cars: ["Example1", "Example2", "Example3"],
+      salons: ["Mickiewicza", "Krakowska", "Dietla"],
     };
   }
   componentDidMount() {
@@ -31,6 +32,17 @@ class RentCar extends Component {
       <div className="auth-wrapper">
         <div className="auth-inner">
           <form className="content" onSubmit={this.handleSubmit}>
+            {this.props.salon ? (
+              <h2>Salon {this.props.salon}</h2>
+            ) : (
+              <SelectComponent
+                caption="Choose a salon"
+                error={this.state.errors.car}
+                id="salons"
+                optionList={this.state.salons}
+              />
+            )}
+
             <SelectComponent
               caption="Choose a car"
               error={this.state.errors.car}
