@@ -9,6 +9,9 @@ export default class RentCarView extends Component {
       salon: "",
     };
   }
+  onChange(e) {
+    console.log(e);
+  }
   render() {
     return (
       <React.Fragment>

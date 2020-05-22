@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import FormComponent from "../../Components/FormComponent";
 import SelectComponent from "../../Components/SelectComponent";
+import "react-widgets/dist/css/react-widgets.css";
+import "../../Styles/RentACar.css";
+
+import { DateTimePicker } from "react-widgets";
 
 class RentCar extends Component {
   constructor(props) {
@@ -16,8 +20,12 @@ class RentCar extends Component {
       },
       cars: ["Example1", "Example2", "Example3"],
       salons: ["Mickiewicza", "Krakowska", "Dietla"],
+      date: "",
+      value: "",
+      date: new Date(),
     };
   }
+
   componentDidMount() {
     this.setState({
       values: {
@@ -26,6 +34,10 @@ class RentCar extends Component {
         email: sessionStorage.getItem("email"),
       },
     });
+  }
+  onChange = (date) => this.setState({ date });
+  componentDidUpdate() {
+    console.log(this.state.date);
   }
   render() {
     return (
@@ -76,6 +88,12 @@ class RentCar extends Component {
               value={this.state.values.lastName}
               handleChange={this.handleChange}
             />
+            <DateTimePicker
+              className="callender"
+              dropUp
+              data={["orange", "red", "blue", "purple"]}
+            />
+
             <button
               type="submit"
               className="btn btn-block"
