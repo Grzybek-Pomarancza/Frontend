@@ -14,7 +14,12 @@ const SelectComponent = (props) => {
           {props.error}
         </label>
       ) : null}
-      <select class="form-control" id={props.id} onChange={props.handleChange}>
+      <select
+        class="form-control"
+        id={props.id}
+        name={props.name}
+        onChange={props.handleChange}
+      >
         {props.optionList.map((value) => (
           <option value={value}>{value}</option>
         ))}

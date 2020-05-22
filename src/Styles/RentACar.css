@@ -1,3 +1,11 @@
 .rw-widget-picker {
+  margin-top: 0em;
   margin-bottom: 1em;
+}
+.form-group {
+  margin-bottom: 0.2em;
+}
+
+.btn-custom {
+  margin-top: 2em;
 }

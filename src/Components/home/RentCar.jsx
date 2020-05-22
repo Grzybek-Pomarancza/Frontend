@@ -3,8 +3,8 @@ import FormComponent from "../../Components/FormComponent";
 import SelectComponent from "../../Components/SelectComponent";
 import "react-widgets/dist/css/react-widgets.css";
 import "../../Styles/RentACar.css";
-
 import { DateTimePicker } from "react-widgets";
+import { Redirect } from "react-router-dom";
 
 class RentCar extends Component {
   constructor(props) {
@@ -17,12 +17,11 @@ class RentCar extends Component {
         firstName: "",
         lastName: "",
         email: "",
+        salon: "",
       },
-      cars: ["Example1", "Example2", "Example3"],
       salons: ["Mickiewicza", "Krakowska", "Dietla"],
-      date: "",
       value: "",
-      date: new Date(),
+      redirect: false,
     };
   }
 
@@ -32,14 +31,46 @@ class RentCar extends Component {
         firstName: sessionStorage.getItem("name"),
         lastName: sessionStorage.getItem("surname"),
         email: sessionStorage.getItem("email"),
+        salon: this.state.salons[0],
       },
     });
   }
-  onChange = (date) => this.setState({ date });
-  componentDidUpdate() {
-    console.log(this.state.date);
-  }
+
+  handleChange = (event) => {
+    event.persist();
+    const value = event.target.value;
+    const name = event.target.name;
+    let errors = this.state.errors;
+    /*switch (name) {
+      case "email":
+        errors.email = this.props.validEmailRegex.test(value)
+          ? ""
+          : "Email address is incorrect";
+        break;
+      case "name":
+        break;
+      default:
+        break;
+    }*/
+    console.log(name, value);
+    this.setState({
+      values: {
+        ...this.state.values,
+        [name]: value,
+      },
+    });
+  };
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({
+      redirect: true,
+    });
+    this.props.chooseSalon(this.state.values.salon);
+  };
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/home/rent-a-car/car-date" />;
+    }
     return (
       <div className="auth-wrapper">
         <div className="auth-inner">
@@ -51,16 +82,11 @@ class RentCar extends Component {
                 caption="Choose a salon"
                 error={this.state.errors.car}
                 id="salons"
+                name="salon"
                 optionList={this.state.salons}
+                handleChange={this.handleChange}
               />
             )}
-
-            <SelectComponent
-              caption="Choose a car"
-              error={this.state.errors.car}
-              id="cars"
-              optionList={this.state.cars}
-            />
             <FormComponent
               caption="Email adress"
               error={this.state.errors.lastName}
@@ -88,18 +114,8 @@ class RentCar extends Component {
               value={this.state.values.lastName}
               handleChange={this.handleChange}
             />
-            <DateTimePicker
-              className="callender"
-              dropUp
-              data={["orange", "red", "blue", "purple"]}
-            />
-
-            <button
-              type="submit"
-              className="btn btn-block"
-              onClick={this.handleSubmit}
-            >
-              Book a car
+            <button type="submit" className="btn btn-block btn-custom">
+              Choose car and termin
             </button>
           </form>
         </div>
