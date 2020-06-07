@@ -1,0 +1,25 @@
+.sidebar{
+    position: fixed;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 3em;
+    width: 20%;
+    height: 70%;
+    background-color: #fff;
+    box-shadow: 0 14px 80px rgba(34, 35, 58, 0.2);
+    margin-left: 5em;
+    margin-bottom: 10em;
+}
+.sidebar>img{
+    margin-left: auto;
+    margin-right: auto;
+width: min-content;
+    height: min-content;
+}
+
+.carousel-home {
+    width: 50em;
+    margin: auto;
+    margin-left: 40em;
+}

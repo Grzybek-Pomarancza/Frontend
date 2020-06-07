@@ -57,7 +57,7 @@ class RentCar extends Component {
             </div>
             <DateTimePicker
               onChange={this.dateFromChange}
-              className="callender"
+              className="calender"
               dropUp
               data={["orange", "red", "blue", "purple"]}
             />
@@ -66,7 +66,7 @@ class RentCar extends Component {
             </div>
             <DateTimePicker
               onChange={this.dateToChange}
-              className="callender"
+              className="calender"
               dropUp
               data={["orange", "red", "blue", "purple"]}
             />

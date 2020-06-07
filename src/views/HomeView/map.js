@@ -13,8 +13,9 @@ export class MapContainer extends Component {
     activeMarker: {}, //Shows the active marker upon click
     selectedPlace: {}, //Shows the infoWindow to the selected place upon a marker
     markers: [
-      { id: "Mickiewicza", lat: 50.0614, lng: 19.9383, name: "Salon X" },
-      { id: "Dietla", lat: 50.0714, lng: 19.9383, name: "Salon Y" },
+      { id: "Mickiewicza", lat: 50.0604919, lng: 19.9230244, name: "Salon Mickiewicza" },
+      { id: "Dietla", lat: 50.0500539, lng: 19.9366164, name: "Salon Dietla" },
+      { id: "Krakowska", lat: 50.0668664, lng: 19.9621229, name: "Salon Krakowska" },
     ],
     redirect: false,
   };
