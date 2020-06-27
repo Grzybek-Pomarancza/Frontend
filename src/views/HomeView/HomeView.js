@@ -9,9 +9,9 @@ import "../../Styles/homeStyle.css";
 export default class RenrCarView extends Component{
     render() {
         return (
-            <div className="auth-wrapper">
-                <Carousel/>
+            <div className="main">
                 <Sidebar/>
+                <Carousel/>
             </div>
 
         );

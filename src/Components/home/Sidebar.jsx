@@ -34,6 +34,16 @@ export default class Sidebar extends Component{
                 <Label className="email">
                     {this.state.values.email}
                 </Label>
+                <div className="reservations">
+                    <Label>
+                        Your reservations:
+                    </Label>
+                    <div className="res">
+                        <h4>Salon Mickiewicza</h4>
+                        <p>Toyota Yaris</p>
+                        <p>12.04-15.04</p>
+                    </div>
+                </div>
             </div>
     )
     }
