@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import FormComponent from "../../Components/FormComponent";
 import SelectComponent from "../../Components/SelectComponent";
+import { store } from "react-notifications-component";
 import "react-widgets/dist/css/react-widgets.css";
 import "../../Styles/RentACar.css";
 
 import { DateTimePicker } from "react-widgets";
 import { Redirect } from "react-router-dom";
 
-class RentCar extends Component {
+class RentCarSecond extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,9 +35,21 @@ class RentCar extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    store.addNotification({
+      title: "Great!",
+      message: "You book a car!",
+      type: "success",
+      insert: "top",
+      container: "bottom-right",
+      animationIn: ["animated", "zoomIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000,
+      },
+    });
   };
   render() {
-    if (!this.props.salon) {
+    if (!this.props.salon || !this.props.redirect) {
       return <Redirect to="/home/rent-a-car" />;
     }
     return (
@@ -58,7 +71,6 @@ class RentCar extends Component {
             <DateTimePicker
               onChange={this.dateFromChange}
               className="calender"
-              dropUp
               data={["orange", "red", "blue", "purple"]}
             />
             <div className="form-group">
@@ -79,7 +91,7 @@ class RentCar extends Component {
             <div
               className="btn btn-block"
               onClick={() => {
-                return <Redirect to="/home/rent-a-car" />;
+                this.props.goTo();
               }}
             >
               BACK
@@ -91,4 +103,4 @@ class RentCar extends Component {
   }
 }
 
-export default RentCar;
+export default RentCarSecond;

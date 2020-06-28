@@ -8,8 +8,10 @@ export default class RentCarView extends Component {
     super(props);
     this.state = {
       salon: this.props.salon,
+      redirect: false,
     };
     this.chooseSalon = this.chooseSalon.bind(this);
+    this.goTo = this.goTo.bind(this);
   }
   onChange(e) {
     console.log(e);
@@ -19,14 +21,32 @@ export default class RentCarView extends Component {
       salon: salon,
     });
   }
+  goTo() {
+    this.setState({
+      redirect: !this.state.redirect,
+    });
+  }
   render() {
     return (
       <Switch>
         <Route exact path="/home/rent-a-car/car-date">
-          <RentCarSecond salon={this.state.salon} />
+          <div className="rent-car-wrapper">
+            <RentCarSecond
+              salon={this.state.salon}
+              goTo={this.goTo}
+              redirect={this.state.redirect}
+            />
+          </div>
         </Route>
         <Route exact path="/home/rent-a-car">
-          <RentCar salon={this.props.salon} chooseSalon={this.chooseSalon} />
+          <div className="rent-car-wrapper">
+            <RentCar
+              salon={this.props.salon}
+              chooseSalon={this.chooseSalon}
+              redirect={this.state.redirect}
+              goTo={this.goTo}
+            />
+          </div>
         </Route>
       </Switch>
     );

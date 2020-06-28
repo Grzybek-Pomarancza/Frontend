@@ -21,7 +21,9 @@ const SelectComponent = (props) => {
         onChange={props.handleChange}
       >
         {props.optionList.map((value) => (
-          <option value={value}>{value}</option>
+          <option value={value} key={value}>
+            {value}
+          </option>
         ))}
       </select>
     </div>

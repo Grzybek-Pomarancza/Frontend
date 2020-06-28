@@ -21,7 +21,6 @@ class RentCar extends Component {
       },
       salons: ["Mickiewicza", "Krakowska", "Dietla"],
       value: "",
-      redirect: false,
     };
   }
 
@@ -31,7 +30,7 @@ class RentCar extends Component {
         firstName: sessionStorage.getItem("name"),
         lastName: sessionStorage.getItem("surname"),
         email: sessionStorage.getItem("email"),
-        salon: this.state.salons[0],
+        salon: this.props.salon ? this.props.salon : this.state.salons[0],
       },
     });
   }
@@ -62,13 +61,11 @@ class RentCar extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({
-      redirect: true,
-    });
     this.props.chooseSalon(this.state.values.salon);
+    this.props.goTo();
   };
   render() {
-    if (this.state.redirect) {
+    if (this.props.redirect) {
       return <Redirect to="/home/rent-a-car/car-date" />;
     }
     return (

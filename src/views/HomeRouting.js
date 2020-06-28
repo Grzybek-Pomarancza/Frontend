@@ -32,20 +32,20 @@ class HomeRouting extends Component {
       return <Redirect to="/sign-in" />;
     }
     return (
-      <Switch>
-        <Route exact path="/home">
-          <MainTopbar logout={this.props.logout} reset={this.salonReset} />
-          <HomeView />
-        </Route>
-        <Route exact path="/home/car-map">
-          <MainTopbar logout={this.props.logout} reset={this.salonReset} />
-          <MapContainer goToSalon={this.goToSalon} />
-        </Route>
-        <Route exact part="/home/rent-a-car">
-          <MainTopbar logout={this.props.logout} reset={this.salonReset} />
-          <RentCarView salon={this.state.salon} />
-        </Route>
-      </Switch>
+      <React.Fragment>
+        <MainTopbar logout={this.props.logout} reset={this.salonReset} />
+        <Switch>
+          <Route exact path="/home">
+            <HomeView />
+          </Route>
+          <Route exact path="/home/car-map">
+            <MapContainer goToSalon={this.goToSalon} />
+          </Route>
+          <Route exact part="/home/rent-a-car">
+            <RentCarView salon={this.state.salon} />
+          </Route>
+        </Switch>
+      </React.Fragment>
     );
   }
 }
